@@ -2,7 +2,7 @@ const User = require("../db/models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../config/key");
-const Order = require("../db/models/Order");
+const Profile = require("../db/models/Profile");
 
 const generateToken = (newUser) => {
   const payload = {

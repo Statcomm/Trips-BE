@@ -1,8 +1,7 @@
 const express = require("express");
-const productRoute = require("./Products/routes");
-const shopRoute = require("./Shop/routes");
+const tripRoute = require("./Trip/routes");
 const userRoute = require("./users/routes");
-const orderRoute = require("./Order/routes");
+const profileRoute = require("./Profile/routes");
 const connectDB = require("./db/database");
 const passport = require("passport");
 const cors = require("cors");
@@ -28,11 +27,10 @@ app.use(passport.initialize());
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-//return all products
+//return all trips
 app.use("/", userRoute);
-app.use("/products", productRoute);
-app.use("/shops", shopRoute);
-app.use("/", orderRoute);
+app.use("/trips", tripRoute);
+app.use("/", profileRoute);
 
 //middleware
 app.use("/media", express.static(path.join(__dirname, "media")));

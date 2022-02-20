@@ -11,8 +11,8 @@ const UserSchema = new mongoose.Schema({
       "Please fill a valid email address",
     ],
   },
-  firstName: { type: String },
-  lastName: { type: String },
+  profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
+  trip: { type: mongoose.Schema.Types.ObjectId, ref: "Trip" },
 });
 
 module.exports = mongoose.model("User", UserSchema);
