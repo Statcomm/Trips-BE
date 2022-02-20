@@ -47,16 +47,26 @@ exports.updateTrip = async (req, res, next) => {
       req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
     }
     console.log(req.body); //new:true to to show the update after change immiditly
-    const trip = await Trip.findByIdAndUpdate(
-      { _id: req.trip.id },
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const trip = await Trip.findByIdAndUpdate({ _id: req.trip.id }, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
     res.json(trip);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.createTrip = async (req, res, next) => {
+  try {
+    // if (req.file) {
+    //   req.body.image = `/${req.file.path}`;
+    // }
+
+    req.body.owner = req.user._id;
+    const newTrip = await Trip.create(req.body);
+    return res.json(newTrip);
   } catch (err) {
     next(err);
   }
