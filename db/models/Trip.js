@@ -8,5 +8,5 @@ const TripSchema = new mongoose.Schema({
   description: { type: String },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
-TripSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=name%>" });
+TripSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
 module.exports = mongoose.model("Trip", TripSchema);
