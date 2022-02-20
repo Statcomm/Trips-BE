@@ -30,7 +30,7 @@ passport.use(jwtStrategy);
 //return all trips
 app.use("/", userRoute);
 app.use("/trips", tripRoute);
-app.use("/", profileRoute);
+app.use("/profile", profileRoute);
 
 //middleware
 app.use("/media", express.static(path.join(__dirname, "media")));

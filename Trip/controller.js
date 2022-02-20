@@ -12,7 +12,7 @@ exports.fetchTrip = async (tripId, next) => {
 exports.getTrips = async (req, res, next) => {
   try {
     //this mothed take only what inside the ""
-    const tripArray = await Trip.find();
+    const tripArray = await Trip.find().populate("owner");
     res.json(tripArray);
   } catch (err) {
     next(err);
@@ -43,9 +43,9 @@ exports.deleteTrip = async (req, res, next) => {
 
 exports.updateTrip = async (req, res, next) => {
   try {
-    if (req.file) {
-      req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
-    }
+    // if (req.file) {
+    //   req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+    // }
     console.log(req.body); //new:true to to show the update after change immiditly
     const trip = await Trip.findByIdAndUpdate({ _id: req.trip.id }, req.body, {
       new: true,

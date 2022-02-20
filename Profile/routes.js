@@ -5,7 +5,7 @@ const routers = express.Router();
 
 const { getProfile, newProfile } = require("./controller");
 
-routers.get("/profiles", getProfile);
+routers.get("/", getProfile);
 
 routers.post(
   "/checkout",
