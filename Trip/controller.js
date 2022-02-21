@@ -59,10 +59,14 @@ exports.updateTrip = async (req, res, next) => {
 };
 
 exports.createTrip = async (req, res, next) => {
+  console.log(
+    "🚀 ~ file: controller.js ~ line 63 ~ exports.createTrip= ~ req.body",
+    req.body
+  );
   try {
-    // if (req.file) {
-    //   req.body.image = `/${req.file.path}`;
-    // }
+    if (req.file) {
+      req.body.image = `/${req.file.path}`;
+    }
 
     req.body.owner = req.user._id;
     const newTrip = await Trip.create(req.body);

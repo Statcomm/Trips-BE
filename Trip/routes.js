@@ -25,7 +25,12 @@ routers.param("tripId", async (req, res, next, id) => {
 routers.get("/", getTrips);
 //return one trip based on id #
 routers.get("/:tripId", getDetail);
-routers.post("/", passport.authenticate("jwt", { session: false }), createTrip);
+routers.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  createTrip
+);
 
 routers.delete("/:tripId", deleteTrip);
 routers.put("/:tripId", updateTrip);
