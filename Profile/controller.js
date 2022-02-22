@@ -4,7 +4,9 @@ const Trip = require("../db/models/Trip");
 
 exports.getProfile = async (req, res, next) => {
   try {
-    const profiles = await Profile.find().populate("owner trips");
+    const profiles = await Profile.find()
+      .populate("owner trips")
+      .populate({ path: "trips", populate: { path: "owner" } });
     res.status(201).json(profiles);
   } catch (e) {
     console.log(e);
