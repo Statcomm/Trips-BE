@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const ProfileSchema = new mongoose.Schema(
   {
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    name: { type: String, require: true },
+    trips: [{ type: mongoose.Schema.Types.ObjectId, ref: "Trip" }],
     image: { type: String },
+    bio: { type: String },
   },
   { timestamps: true }
 );

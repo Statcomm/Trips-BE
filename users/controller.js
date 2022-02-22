@@ -20,13 +20,28 @@ exports.signUp = async (req, res, next) => {
     const saltRound = 10;
     const hashedPassword = await bcrypt.hash(req.body.password, saltRound);
     req.body.password = hashedPassword;
+    console.log(
+      "🚀 ~ file: controller.js ~ line 23 ~ exports.signUp= ~ req.body",
+      req.body
+    );
+
     //STEP TWO: send the hash password
-    const user = await User.create(req.body);
+    const user = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+    });
+    const profile = await Profile.create({
+      owner: user._id,
+      image: req.body.image,
+      bio: req.body.bio,
+    });
 
     //STEP THREE:the data that I want to send to the user in the inside Token and create it
     const token = generateToken(user);
     //STEP FOUR: Show the Token
     res.status(201).json({ token });
+    res.status(201).json({ profile });
   } catch (err) {
     next(err);
   }

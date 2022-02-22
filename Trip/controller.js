@@ -1,3 +1,4 @@
+const Profile = require("../db/models/Profile");
 const Trip = require("../db/models/Trip");
 
 exports.fetchTrip = async (tripId, next) => {
@@ -53,20 +54,6 @@ exports.updateTrip = async (req, res, next) => {
     });
 
     res.json(trip);
-  } catch (err) {
-    next(err);
-  }
-};
-
-exports.createTrip = async (req, res, next) => {
-  try {
-    // if (req.file) {
-    //   req.body.image = `/${req.file.path}`;
-    // }
-
-    req.body.owner = req.user._id;
-    const newTrip = await Trip.create(req.body);
-    return res.json(newTrip);
   } catch (err) {
     next(err);
   }

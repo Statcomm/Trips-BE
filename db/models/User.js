@@ -11,7 +11,6 @@ const UserSchema = new mongoose.Schema({
     ],
   },
   profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
-  trip: { type: mongoose.Schema.Types.ObjectId, ref: "Trip" },
 });
 
 module.exports = mongoose.model("User", UserSchema);
