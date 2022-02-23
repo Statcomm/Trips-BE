@@ -5,7 +5,6 @@ const ProfileSchema = new mongoose.Schema(
   {
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     trips: [{ type: mongoose.Schema.Types.ObjectId, ref: "Trip" }],
-    image: { type: String },
     bio: { type: String },
   },
   { timestamps: true }

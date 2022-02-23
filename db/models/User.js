@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
       "Please fill a valid email address",
     ],
   },
+  image: { type: String },
   profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
 });
 

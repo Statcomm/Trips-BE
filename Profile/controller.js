@@ -41,16 +41,15 @@ exports.createTrip = async (req, res, next) => {
     // }
     const { profileId } = req.params;
 
+    req.body.owner = req.user._id;
     const newTrip = await Trip.create(req.body);
+
     await Profile.findByIdAndUpdate(
       { _id: profileId },
       { $push: { trips: newTrip._id } }
     );
     const profileTrip = await Profile.create({ trip: newTrip._id });
-    console.log(
-      "🚀 ~ file: controller.js ~ line 55 ~ exports.createTrip= ~ profileTrip",
-      profileTrip
-    );
+
     return res.status(201).json(newTrip);
   } catch (err) {
     next(err);
