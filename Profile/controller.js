@@ -43,10 +43,18 @@ exports.createTrip = async (req, res, next) => {
     // if (req.file) {
     //   req.body.image = `/${req.file.path}`;
     // }
-    const { profileid } = req.params;
-    req.body.profile = profileid;
+    req.body.profile = req.params;
+
+    const profileid = req.body.profile;
+
     req.body.owner = req.user._id;
+
     const newTrip = await Trip.create(req.body);
+    console.log(
+      "🚀 ~ file: controller.js ~ line 53 ~ exports.createTrip= ~ newTrip",
+      newTrip
+    );
+
     await Profile.findByIdAndUpdate(
       { _id: profileid },
       { $push: { trips: newTrip._id } }
