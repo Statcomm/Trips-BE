@@ -27,10 +27,6 @@ exports.newProfile = async (req, res, next) => {
   try {
     req.body.owner = req.user._id;
     const profileNew = await Profile.create(req.body);
-    console.log(
-      "🚀 ~ file: conterller.js ~ line 17 ~ exports.newProfile= ~ profileNew",
-      profileNew
-    );
 
     return res.json(profileNew);
   } catch (error) {
@@ -43,15 +39,18 @@ exports.createTrip = async (req, res, next) => {
     // if (req.file) {
     //   req.body.image = `/${req.file.path}`;
     // }
-    const { profileid } = req.params;
-    req.body.profile = profileid;
-    req.body.owner = req.user._id;
+    const { profileId } = req.params;
+
     const newTrip = await Trip.create(req.body);
     await Profile.findByIdAndUpdate(
-      { _id: profileid },
+      { _id: profileId },
       { $push: { trips: newTrip._id } }
     );
     const profileTrip = await Profile.create({ trip: newTrip._id });
+    console.log(
+      "🚀 ~ file: controller.js ~ line 55 ~ exports.createTrip= ~ profileTrip",
+      profileTrip
+    );
     return res.status(201).json(newTrip);
   } catch (err) {
     next(err);
@@ -60,9 +59,9 @@ exports.createTrip = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
-    // if (req.file) {
-    //   req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
-    // }
+    if (req.file) {
+      req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+    }
     console.log(req.body); //new:true to to show the update after change immiditly
     const profile = await Profile.findByIdAndUpdate(
       { _id: req.profile.id },
@@ -71,7 +70,7 @@ exports.updateProfile = async (req, res, next) => {
         new: true,
         runValidators: true,
       }
-    );
+    ).populate("trips");
 
     res.json(profile);
   } catch (err) {
