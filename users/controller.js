@@ -17,6 +17,9 @@ const generateToken = (newUser) => {
 exports.signUp = async (req, res, next) => {
   try {
     //STEP ONE: encrypt the password
+    if (req.file) {
+      req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+    }
     const saltRound = 10;
     const hashedPassword = await bcrypt.hash(req.body.password, saltRound);
     req.body.password = hashedPassword;

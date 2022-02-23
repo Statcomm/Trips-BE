@@ -51,7 +51,7 @@ exports.updateTrip = async (req, res, next) => {
     const trip = await Trip.findByIdAndUpdate({ _id: req.trip.id }, req.body, {
       new: true,
       runValidators: true,
-    });
+    }).populate("owner");
 
     res.json(trip);
   } catch (err) {

@@ -31,6 +31,7 @@ routers.post(
 routers.put(
   "/profiles/:profileId",
   passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
   updateProfile
 );
 routers.post(
