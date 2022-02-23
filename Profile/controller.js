@@ -47,3 +47,24 @@ exports.createTrip = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    // if (req.file) {
+    //   req.body.image = `${req.protocol}://${req.get("host")}/${req.file.path}`;
+    // }
+    console.log(req.body); //new:true to to show the update after change immiditly
+    const profile = await Profile.findByIdAndUpdate(
+      { _id: req.profile.id },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.json(profile);
+  } catch (err) {
+    next(err);
+  }
+};
