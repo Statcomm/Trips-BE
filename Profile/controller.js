@@ -23,16 +23,16 @@ exports.getProfile = async (req, res, next) => {
   }
 };
 
-exports.newProfile = async (req, res, next) => {
-  try {
-    req.body.owner = req.user._id;
-    const profileNew = await Profile.create(req.body);
+// exports.newProfile = async (req, res, next) => {
+//   try {
+//     req.body.owner = req.user._id;
+//     const profileNew = await Profile.create(req.body);
 
-    return res.json(profileNew);
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     return res.json(profileNew);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 exports.createTrip = async (req, res, next) => {
   try {
@@ -69,7 +69,9 @@ exports.updateProfile = async (req, res, next) => {
         new: true,
         runValidators: true,
       }
-    ).populate("trips");
+    )
+      .populate("owner trips")
+      .populate({ path: "trips", populate: { path: "owner" } });
 
     res.json(profile);
   } catch (err) {
