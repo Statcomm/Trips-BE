@@ -33,18 +33,22 @@ exports.signUp = async (req, res, next) => {
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
+      image: req.body.image,
     });
     const profile = await Profile.create({
       owner: user._id,
-      image: req.body.image,
       bio: req.body.bio,
     });
+    const profileAndUser = profile + user;
+    console.log(
+      "🚀 ~ file: controller.js ~ line 43 ~ exports.signUp= ~ profileAndUser",
+      profileAndUser
+    );
 
     //STEP THREE:the data that I want to send to the user in the inside Token and create it
-    const token = generateToken(user);
+    const token = generateToken(profileAndUser);
     //STEP FOUR: Show the Token
     res.status(201).json({ token });
-    res.status(201).json({ profile });
   } catch (err) {
     next(err);
   }

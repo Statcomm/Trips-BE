@@ -5,7 +5,7 @@ const routers = express.Router();
 
 const {
   getProfile,
-  newProfile,
+  // newProfile,
   createTrip,
   updateProfile,
   fetchProfile,
@@ -23,11 +23,11 @@ routers.param("profileId", async (req, res, next, id) => {
 
 routers.get("/profiles", getProfile);
 
-routers.post(
-  "/profiles",
-  passport.authenticate("jwt", { session: false }),
-  newProfile
-);
+// routers.post(
+//   "/profiles",
+//   passport.authenticate("jwt", { session: false }),
+//   newProfile
+// );
 routers.put(
   "/profiles/:profileId",
   passport.authenticate("jwt", { session: false }),
