@@ -9,7 +9,7 @@ const generateToken = (newUser) => {
     username: newUser.username,
     id: newUser.id,
     exp: Date.now() + JWT_EXPIRATION_MS,
-    name: `${newUser.firstName} ${newUser.lastName}`,
+
     email: newUser.email,
   };
   return jwt.sign(payload, JWT_SECRET);
